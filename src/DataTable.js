@@ -7,13 +7,16 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import data from './data';
+
+
 
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
 });
+
+
 
 
 
@@ -28,8 +31,7 @@ export default function DataTable({ data }) {
                 <TableHead>
                     <TableRow>
 
-                        <TableCell>Currency</TableCell>
-                        <TableCell align="right">Rate</TableCell>
+                        <TableCell>Currency</TableCell>        
                         <TableCell align="right">Bid</TableCell>
                         <TableCell align="right">Ask</TableCell>
                         <TableCell align="right">High</TableCell>
@@ -41,11 +43,11 @@ export default function DataTable({ data }) {
                 </TableHead>
                 <TableBody>
                     {data.map((row, index) => (
+
                         <TableRow key={index}>
                             <TableCell component="th" scope="row">
                                 {row.currency}
                             </TableCell>
-                            <TableCell align="right">{row.rate}</TableCell>
                             <TableCell align="right">{row.bid}</TableCell>
                             <TableCell align="right">{row.ask}</TableCell>
                             <TableCell align="right">{row.high}</TableCell>

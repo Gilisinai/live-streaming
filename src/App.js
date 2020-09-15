@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import DataTable from './Table';
+import DataTable from './DataTable';
 import io from 'socket.io-client'
 
 class App extends Component {
@@ -8,15 +8,17 @@ class App extends Component {
   state = {
     data: [],
     key: 'trial',
-    example: []
+    
   }
 
   async componentDidMount() {
     await this.openSocket(this.state.key)
-    // this.example()
+    
   }
 
+
   openSocket = (key) => {
+    
 
     const socket = io('https://wss.live-rates.com/')
     socket.on('connect', function () {
@@ -38,9 +40,7 @@ class App extends Component {
 
         if(itemToUpdate == undefined) {
           dataArr.push(data)
-          // console.log(`found element: ${foundWhereToUpdate.currency}`)
-        } else {
-          // console.log(foundWhereToUpdate.currency, foundWhereToUpdate.bid)
+        } else {    
           let index = dataArr.indexOf(itemToUpdate)
           dataArr[index] = data
         }
@@ -57,43 +57,7 @@ class App extends Component {
 
   }
 
-  example = () => {
-    setInterval(() => {
-      let currencyData = this.exampleResponse()
-      let exampleData = [...this.state.example]
-      let itemToUpdate = exampleData.find(example => example['currency'] === currencyData['currency'])
-      
-      if(itemToUpdate == undefined) {
-        exampleData.push(currencyData)
-        // console.log(`found element: ${foundWhereToUpdate.currency}`)
-      } else {
-        // console.log(foundWhereToUpdate.currency, foundWhereToUpdate.bid)
-        let index = exampleData.indexOf(itemToUpdate)
-        exampleData[index] = currencyData
-      }
-
-      
-      
-      this.setState({
-        example: exampleData
-      })
-    }, 1000)
-  }
-
-  exampleResponse = () => {
-    let currency = ['EURUSD', 'USDJPY', 'BTCUSD', 'ETH']
-    return this.createData(currency[this.getRandomInt(currency.length)], Math.random(), Math.random(), Math.random(),Math.random(),)
-
-  }
-
-  createData = (currency, bid, ask, high, low) => {
-
-    return { currency, bid, ask, high, low };
-  }
-
-  getRandomInt = (max) => {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+  
 
 
   render() {
@@ -102,7 +66,7 @@ class App extends Component {
     return (
       <div className="App">
         <DataTable data={data} />
-        {/* <DataTable data={example} /> */}
+       
       </div>
     );
   }
